@@ -27,7 +27,7 @@ jobs:
 
       - name: Deploy to Server 1
         run: |
-          sudo ssh -i ~/.ssh/deploy_key.pem ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST1 }} << 'EOF'
+          sudo ssh -i ~/.ssh/deploy_key.pem ubuntu@18.216.152.92 << 'EOF'
             docker pull ${{ secrets.DOCKER_USERNAME }}/demo-appwithflask:latest
             docker stop demo-appwithflask || true
             docker rm demo-appwithflask || true
