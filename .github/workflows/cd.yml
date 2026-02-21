@@ -38,8 +38,9 @@ jobs:
 
       - name: Health check Server 1
         run: |
-          sleep 15
-          STATUS=$(curl -s -o /dev/null -w "%{http_code}" http://${{ secrets.EC2_HOST1 }}/health)
+          sleep 20
+          HOST=$(echo "${{ secrets.EC2_HOST1 }}" | tr -d '[:space:]')
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" http://${HOST}/health)
           if [ "$STATUS" != "200" ]; then
             echo "Server 1 health check failed. Status: $STATUS"
             exit 1
@@ -60,8 +61,9 @@ jobs:
 
       - name: Health check Server 2
         run: |
-          sleep 15
-          STATUS=$(curl -s -o /dev/null -w "%{http_code}" http://${{ secrets.EC2_HOST2 }}/health)
+          sleep 20
+          HOST=$(echo "${{ secrets.EC2_HOST1 }}" | tr -d '[:space:]')
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" http://${HOST}/health)
           if [ "$STATUS" != "200" ]; then
             echo "Server 2 health check failed. Status: $STATUS"
             exit 1
